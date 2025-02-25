@@ -5,6 +5,7 @@ from cavenode import *
 class CaveGrid():
     def __init__(self, size, looping = False):
         self.size = size
+        self.full_size = size*size
         self.grid = self._init_grid()
         self._connect_grid(looping)
 
@@ -65,14 +66,14 @@ class CaveGrid():
                 current_node.set_contents(contents)
                 return
             current_id += 1
-            if current_id == self.size*self.size:
+            if current_id == self.full_size:
                 current_id = 0
                 looped = True
         raise Exception("The grid is too small!")
             
     # get the cave node that has a given id
     def get_node_from_id(self, id):
-        if id < 0 or id >= self.size * self.size:
+        if id < 0 or id >= self.full_size:
             return None
         x = id // self.size
         y = id % self.size
