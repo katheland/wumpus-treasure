@@ -26,6 +26,9 @@ class CaveNode():
         self.contents = None
         self.exits = []
     
-    def __repr__(self):
-        return f"{self.id}"
+    def list_exit_ids(self):
+        exit_ids = []
+        for exit in self.exits:
+            exit_ids.append(exit.id)
+        return exit_ids
 

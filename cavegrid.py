@@ -22,7 +22,11 @@ class CaveGrid():
         return grid
 
     # adds a CaveNode's adjacent squares to its exits
+    # loop: True if the player can loop around the sides of the grid, False if not
     def _connect_grid(self, loop = False):
+        # a single room doesn't have anything to connect to...
+        if self.size <= 1:
+            return
         for i in range(0, self.size):
             for j in range(0, self.size):
                 node = self.grid[i][j]
@@ -46,3 +50,11 @@ class CaveGrid():
                     node.exits.append(self.grid[i][j+1])
                 elif loop:
                     node.exits.append(self.grid[i][0])
+    
+    # get the cave node that has a given id
+    def get_node_from_id(self, id):
+        if id < 0 or id >= self.size * self.size:
+            return None
+        x = id // self.size
+        y = id % self.size
+        return self.grid[x][y]
