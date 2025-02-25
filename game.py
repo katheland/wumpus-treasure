@@ -34,22 +34,19 @@ def initialize_player(grid):
 
 # the game loop
 def game_loop(player):
-    exit_ids = player.list_exit_ids()
+    exit_keys = list(player.exits.keys())
     print(f"The player is currently in cave {player.id}")
     if player.contents != None:
         print(f"This cave contains: {player.contents}")
-    print(f"Exits lead to: {exit_ids}")
+    print(f"Exits lead to: {exit_keys}")
     user_input = ""
-    while user_input not in exit_ids:
+    while user_input not in exit_keys:
         user_input = input()
-        if int(user_input) in exit_ids:
-            move_player(player, int(user_input))
+        if user_input in exit_keys:
+            move_player(player, user_input)
         else:
             print("Please enter a valid exit.")
 
 # moves the player to the selected exit
 def move_player(player, go_exit):
-    for e in player.exits:
-        if e.id == go_exit:
-            game_loop(e)
-    raise Exception("But we already checked that it was a valid exit, how are we here?")
+    game_loop(player.exits[go_exit])

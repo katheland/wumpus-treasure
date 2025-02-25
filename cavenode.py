@@ -23,13 +23,13 @@ class CaveNode():
         self.id = id
         self.point = point
         self.contents = None
-        self.exits = []
+        self.exits = {}
     
     # get a list of the ids of the exit nodes
     def list_exit_ids(self):
         exit_ids = []
         for exit in self.exits:
-            exit_ids.append(exit.id)
+            exit_ids.append(self.exits[exit].id)
         return exit_ids
     
     # set the contents of a node, and extend its aura to its neighbors
@@ -38,18 +38,18 @@ class CaveNode():
         for exit in self.exits:
             match contents:
                 case ContentType.WUMPUS:
-                    exit.contents = ContentType.STINK
+                    self.exits[exit].contents = ContentType.STINK
                 case ContentType.PIT:
-                    exit.contents = ContentType.BREEZE
+                    self.exits[exit].contents = ContentType.BREEZE
                 case ContentType.BAT:
-                    exit.contents = ContentType.SQUEAK
+                    self.exits[exit].contents = ContentType.SQUEAK
     
     # check whether the node and its exits are all empty of contents
     def area_is_clear(self):
         if self.contents != None:
             return False
         for exit in self.exits:
-            if exit.contents != None:
+            if self.exits[exit].contents != None:
                 return False
         return True
 

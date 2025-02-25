@@ -33,24 +33,24 @@ class CaveGrid():
                 node = self.grid[i][j]
                 # left neighbor
                 if i > 0:
-                    node.exits.append(self.grid[i-1][j])
+                    node.exits["west"] = self.grid[i-1][j]
                 elif loop:
-                    node.exits.append(self.grid[self.size-1][j])
+                    node.exits["west"] = self.grid[self.size-1][j]
                 # right neighbor
                 if i < self.size - 1:
-                    node.exits.append(self.grid[i+1][j])
+                    node.exits["east"] = self.grid[i+1][j]
                 elif loop:
-                    node.exits.append(self.grid[0][j])
+                    node.exits["east"] = self.grid[0][j]
                 # upper neighbor
                 if j > 0:
-                    node.exits.append(self.grid[i][j-1])
+                    node.exits["north"] = self.grid[i][j-1]
                 elif loop:
-                    node.exits.append(self.grid[i][self.size-1])
+                    node.exits["north"] = self.grid[i][self.size-1]
                 # lower neighbor
                 if j < self.size - 1:
-                    node.exits.append(self.grid[i][j+1])
+                    node.exits["south"] = self.grid[i][j+1]
                 elif loop:
-                    node.exits.append(self.grid[i][0])
+                    node.exits["south"] = self.grid[i][0]
     
     # set the contents at the given id
     # if the area isn't clear, move to the next node until you find a clear area
