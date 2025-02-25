@@ -51,6 +51,25 @@ class CaveGrid():
                 elif loop:
                     node.exits.append(self.grid[i][0])
     
+    # set the contents at the given id
+    # if the area isn't clear, move to the next node until you find a clear area
+    def add_contents(self, contents, id):
+        current_id = id
+        looped = False
+        while looped == False or current_id != id:
+            current_node = self.get_node_from_id(current_id)
+            if contents == ContentType.TREASURE and current_node.contents == None:
+                current_node.set_contents(contents)
+                return
+            if current_node.area_is_clear():
+                current_node.set_contents(contents)
+                return
+            current_id += 1
+            if current_id == self.size*self.size:
+                current_id = 0
+                looped = True
+        raise Exception("The grid is too small!")
+            
     # get the cave node that has a given id
     def get_node_from_id(self, id):
         if id < 0 or id >= self.size * self.size:
