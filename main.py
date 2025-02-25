@@ -13,12 +13,7 @@ def main():
 
     grid = initialize_grid(size, looping)
     player = initialize_player(grid)
-    for i in range(0, grid.size):
-        for j in range(0, grid.size):
-            ptr = grid.grid[i][j]
-            print(f"{ptr.id}: ({ptr.point.x},{ptr.point.y}) - {ptr.list_exit_ids()}")
-            if (ptr.contents != None):
-                print(f"{ptr.id} contains {ptr.contents}")
-    print(f"The player is starting at node {player.id}")
+    
+    game_loop(player)
 
 main()
