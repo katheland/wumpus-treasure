@@ -21,16 +21,18 @@ class ContentType(Enum):
 class CaveNode():
     def __init__(self, id, point):
         self.id = id
-        self.point = point
+        self.point = point # this is here in case I want to make this visual later
         self.contents = None
         self.exits = {}
     
-    # get a list of the ids of the exit nodes
-    def list_exit_ids(self):
-        exit_ids = []
-        for exit in self.exits:
-            exit_ids.append(self.exits[exit].id)
-        return exit_ids
+    # list the exit directions in a string
+    def list_exits(self):
+        directions = list(self.exits.keys())
+        exit_list = directions[0]
+        for i in range(1, len(directions)):
+            exit_list += ", "
+            exit_list += directions[i]
+        return exit_list
     
     # set the contents of a node, and extend its aura to its neighbors
     def set_contents(self, contents):

@@ -6,7 +6,7 @@ import random
 def initialize_grid(size, looping = False):
     if size < 6:
         print("That grid is too small.  Pick something bigger.")
-        return None
+        quit()
     grid = CaveGrid(size, looping)
     grid.add_contents(ContentType.WUMPUS, random.randrange(grid.full_size))
     grid.add_contents(ContentType.PIT, random.randrange(grid.full_size))
@@ -32,21 +32,57 @@ def initialize_player(grid):
             looped = True
     raise Exception("The grid is too small!")
 
-# the game loop
-def game_loop(player):
+# print and deal with what's at the player's location
+def print_location(grid, player):
+    print(f"The player is currently in cave {player.id}.")
+    match player.contents:
+        case ContentType.WUMPUS:
+            print("Oh no!  You woke up the Wumpus!")
+            lose()
+        case ContentType.STINK:
+            print("Something nearby smells really bad.")
+            print(f"Exits lead to: {player.list_exits()}")
+            game_loop(grid, player)
+        case ContentType.PIT:
+            print("Oh no!  You fell down a pit!")
+            lose()
+        case ContentType.BREEZE:
+            print("There's a draft in this cave, though it's hard to tell from where.")
+            print(f"Exits lead to: {player.list_exits()}")
+            game_loop(grid, player)
+        case ContentType.BAT:
+            print("Before you can react, a giant bat swoops down and grabs you, flying you to a random cave!")
+            print_location(grid, initialize_player(grid))
+        case ContentType.SQUEAK:
+            print("The sound of high-pitched squeaks echoes around you.")
+            print(f"Exits lead to: {player.list_exits()}")
+            game_loop(grid, player)
+        case ContentType.TREASURE:
+            print("The cave is filled with gold and jewels!")
+            win()
+        case None:
+            print(f"Exits lead to: {player.list_exits()}")
+            game_loop(grid, player)
+
+# waits for and handles player input
+def game_loop(grid, player):
     exit_keys = list(player.exits.keys())
-    print(f"The player is currently in cave {player.id}")
-    if player.contents != None:
-        print(f"This cave contains: {player.contents}")
-    print(f"Exits lead to: {exit_keys}")
     user_input = ""
     while user_input not in exit_keys:
         user_input = input()
         if user_input in exit_keys:
-            move_player(player, user_input)
+            move_player(grid, player, user_input)
         else:
             print("Please enter a valid exit.")
 
 # moves the player to the selected exit
-def move_player(player, go_exit):
-    game_loop(player.exits[go_exit])
+def move_player(grid, player, go_exit):
+    print_location(grid, player.exits[go_exit])
+
+# lose message
+def lose():
+    print("You lose.  Better luck next time!")
+
+# win message
+def win():
+    print("You win!  Congratulations!")

@@ -1,19 +1,17 @@
-import sys
+import argparse
 from game import *
 
 def main():
-    # default values
-    size = 7
-    looping = False
-    # defaults can be changed with arguments
-    if len(sys.argv) >= 2:
-        size = int(sys.argv[1])
-    if len(sys.argv) == 3:
-        looping = bool(sys.argv[2])
-
-    grid = initialize_grid(size, looping)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-s", "--size", type=int, default=7)
+    parser.add_argument("-l", "--loop", type=bool, default=False)
+    args = parser.parse_args()
+    
+    grid = initialize_grid(args.size, args.loop)
     player = initialize_player(grid)
     
-    game_loop(player)
+    print("Welcome to Treasure of the Wumpus!")
+    print("Let your treasure hunt begin, adventurer!")
+    print_location(grid, player)
 
 main()
