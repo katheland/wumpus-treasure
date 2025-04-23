@@ -1,0 +1,6 @@
+Ideas for the Future
+
+- cave systems of different shapes (ex. hexagonal grid, the original dodecahedron, arbitrary)
+- make it visual with Pygame
+- allow for varying the number of each hazard
+- allowing bats and the Wumpus to move
