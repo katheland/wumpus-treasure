@@ -5,7 +5,7 @@ You are an explorer, searching for a lost treasure said to be found in this syst
 
 Use your wits to maneuver the caves, avoid the obstacles, let the Wumpus sleep, and claim its treasure for your own!
 
-# How to Play
+## How to Play
 `python3 main.py [-s] [-l]`
 
 -s (--size) is an int that determines the size of the square grid of the cave system.  It needs to be 6 or greater, and defaults to 7.
@@ -14,6 +14,6 @@ Use your wits to maneuver the caves, avoid the obstacles, let the Wumpus sleep, 
 
 There are two pits, two bats, one Wumpus, and one treasure that are randomly placed.  All but the treasure have an aura of one square that indicates that it's nearby: a pit has a draft, a bat has sounds of squeaking, and a Wumpus has a bad smell.  The player is then randomly placed in a cave that has no hazard or aura.  Move by inputting one of the directions listed in the cave's exits.
 
-# Contributing
+## Contributing
 
 If you'd like to contribute, please fork the repository and open a pull request to the `main` branch.
